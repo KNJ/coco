@@ -1,0 +1,10 @@
+{
+    "name": "knj/coco",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Wazly\\": "src/"
+        }
+    }
+}
