@@ -8,10 +8,13 @@ class Talk
     private $reply;
     private $result;
 
-    public function __construct($defs)
+    public function __construct($defs = [])
     {
         if (!isset($defs['question'])) {
-            throw new Exception('Constructor must have question message.');
+            $defs['question'] = '';
+        }
+        if (!isset($defs['default'])) {
+            $defs['default'] = null;
         }
         if (!isset($defs['expect'])) {
             $defs['expect'] = [];
@@ -21,7 +24,11 @@ class Talk
 
     public function start()
     {
-        echo $this->defs['question'] . ' [' . $this->defs['default'] . ']: ';
+        if (is_null($this->defs['default'])) {
+            echo $this->defs['question'] . ($this->defs['question'] === '' ? '' : ': ');
+        } else {
+            echo $this->defs['question'] . ' [' . $this->defs['default'] . ']: ';
+        }
         $reply = trim(fgets(STDIN));
         if ($reply === '' && isset($this->defs['default'])) {
             $reply = $this->defs['default'];
